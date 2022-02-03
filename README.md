@@ -1,6 +1,6 @@
 # DatoCMS Deepl Bulk
 
-Plugin to translate a model in one click from the sidebar !
+Plugin to translate a datoCMS model through deepl in one click from the sidebar !
 
 Made with ❤️  at [OeilPourOeil](https://oeilpouroeilcreations.fr)
 
