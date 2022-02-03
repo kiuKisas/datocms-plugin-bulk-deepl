@@ -1,4 +1,4 @@
-# [DatoCMS Deepl Bulk]
+# DatoCMS Deepl Bulk
 
 Plugin to translate a model in one click from the sidebar !
 
