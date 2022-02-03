@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-deepl-bulk",
-  "description": "DatoCMS Plugin to translate a model in one click from the sidebar !",
+  "description": "DatoCMS Plugin to translate a model in one click through deepl from the sidebar !",
   "keywords": [
     "datocms",
     "datocms-plugin",
