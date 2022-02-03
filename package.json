@@ -1,0 +1,59 @@
+{
+  "name": "datocms-plugin-deepl-bulk",
+  "description": "DatoCMS Plugin to translate a model in one click from the sidebar !",
+  "keywords": [
+    "datocms",
+    "datocms-plugin",
+    "deepl"
+  ],
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/node": "^16.11.21",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "async-es": "^3.2.3",
+    "datocms-plugin-sdk": "^0.5.2",
+    "datocms-react-ui": "^0.5.2",
+    "marked": "^4.0.12",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.0",
+    "turndown": "^7.1.1",
+    "typescript": "^4.5.5"
+  },
+  "scripts": {
+    "start": "cross-env BROWSER='none' PUBLIC_URL='/' react-scripts start",
+    "build": "cross-env PUBLIC_URL='.' react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "prepublishOnly": "npm run build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "datoCmsPlugin": {
+    "title": "datocms_deepl_bulk",
+    "previewImage": "",
+    "coverImage": "",
+    "entryPoint": "build/index.html",
+    "permissions": []
+  }
+}
