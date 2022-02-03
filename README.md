@@ -9,6 +9,7 @@ Made with ❤️  at [OeilPourOeil](https://oeilpouroeilcreations.fr)
 - [x] Optimize deepl request: each request are sended with 50 texts (deepL limitation). You can also choose the maximum concurrent request the plugins will send (default to 5)
 - [x] Respect markdown format
 - [x] Support for field and modular blocks
+- [x] keep or override current target content
 
 ## To do (maybe)
 - [ ] show deepl usage (character count and limit)
