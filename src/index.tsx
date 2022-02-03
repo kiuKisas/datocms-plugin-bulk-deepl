@@ -1,4 +1,4 @@
-import { connect, IntentCtx, ModelBlock, RenderItemFormSidebarPanelCtx } from 'datocms-plugin-sdk';
+import { connect, RenderItemFormSidebarPanelCtx } from 'datocms-plugin-sdk';
 import { Canvas } from 'datocms-react-ui';
 import { Params } from './paramsTypes';
 import { make as makeFields } from './fields'

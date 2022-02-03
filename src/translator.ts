@@ -1,8 +1,7 @@
 import deepl, { Translate } from "./deepl"
-import { Field, Fields, IIndexable } from './fieldsTypes'
+import { Fields } from './fieldsTypes'
 import { Params } from "./paramsTypes";
 import { forEachOfLimit } from "async-es"
-//import { ItemAttributes } from "datocms-plugin-sdk/dist/types/SiteApiSchema";
 
 const chunks = (array: Array<any>, chunkSize: number) => {
   const chunkedArr = [];
@@ -68,11 +67,3 @@ const makeTranslator: MakeTranslator = ({ params, fields }) => {
 }
 
 export default makeTranslator
-
-      // https://www.datocms.com/docs/plugin-sdk/working-with-form-values
-      // https://github.com/SKLINET/datocms-plugin-deepl-translate-button/blob/main/src/index.js
-      //https://github.com/marcelofinamorvieira/record-comments/blob/9d5595337fbbe21506ad03cc5fc85eca470bc250/src/entrypoints/CommentsBar.tsx
-      //https://github.com/datocms/plugins/blob/78a524d1a00cf57596db8e6d3a92e0c6e0f934f0/notes/src/entrypoints/NotesSidebar.tsx
-      //https://github.com/commercelayer/dato-plugin/blob/75861d4c3df50896e6df38b8319bbda41b2b774c/src/entrypoints/FieldExtension.tsx
-      // --> ca depend du format (meme si on aura markdown dans tout les cas, tout le temps)
-// https://github.com/Eurac-Research/datocms-plugin-deepl-translate-from-original/blob/master/src/index.js

@@ -6,8 +6,7 @@
     "datocms-plugin",
     "deepl"
   ],
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
   "dependencies": {
     "@types/node": "^16.11.21",
     "@types/react": "^17.0.38",

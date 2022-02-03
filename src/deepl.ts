@@ -46,7 +46,7 @@ const makeTranslate: MakeTranslate = ({ key, free }) => {
 }
 
 export type Usage = (credentials: DeeplCredentials) => Promise<UsageResponse>
-const usage: Usage = ({ key, free }) => {
+const usage: Usage = async ({ key, free }) => {
   const url = (free ? freeUrl : proUrl) + 'usage'
   return fetch(url, {
     method: "GET",
