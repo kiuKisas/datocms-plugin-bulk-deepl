@@ -1,8 +1,7 @@
 import { RenderConfigScreenCtx } from 'datocms-plugin-sdk';
 import { Canvas, Form, FieldGroup, SwitchField, Spinner, TextField, Button } from 'datocms-react-ui';
 import { useState } from 'react';
-import { Params } from '../Params.d.ts'
-import s from '../styles.module.css';
+import { Params } from '../paramsTypes'
 
 export default function ConfigScreen({ ctx }: { ctx: RenderConfigScreenCtx }) {
   const params = ctx.plugin.attributes.parameters as Params;
@@ -12,11 +11,8 @@ export default function ConfigScreen({ ctx }: { ctx: RenderConfigScreenCtx }) {
   const [maxRequest, setMaxRequest] = useState(params.maxRequest || 5)
 
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [errMsg, setErrMsg] = useState("")
 
   const handleSubmit = () => {
-    setError(false)
     setLoading(true)
     ctx.updatePluginParameters({ apiKey, freeMode, maxRequest })
       .then(() => {
@@ -24,8 +20,6 @@ export default function ConfigScreen({ ctx }: { ctx: RenderConfigScreenCtx }) {
         ctx.notice("Settings updated succesfully !")
       })
       .catch(e => {
-        setError(true)
-        setErrMsg(e)
         ctx.alert(`Error will saving setting : ${e}`)
       })
   }

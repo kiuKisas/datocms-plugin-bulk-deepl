@@ -1,7 +1,7 @@
 import deepl, { Translate } from "./deepl"
 import { Fields } from './fieldsTypes'
 import { Params } from "./paramsTypes";
-import { forEachOfLimit } from "async-es"
+import { forEachOfLimit } from "async"
 
 const chunks = (array: Array<any>, chunkSize: number) => {
   const chunkedArr = [];
@@ -35,34 +35,30 @@ const makeUpdateFields: MakeUpdateFields = ({ translate, source, target }) => {
   }
 }
 
-const removeEmptyFieldValue = (fields: Fields, override: boolean, source: string, target: string): Fields => {
-  return fields.filter(field => {
-    const sourceContent = field.valueByLocale(source)
-    if (!sourceContent || sourceContent.trim().length === 0) {
-      return false
-    } else if (!override) {
-      const targetContent = field.valueByLocale(target)
-      if (targetContent && targetContent.trim().length > 0) {
-        return false
-      } else {
-        return true
-      }
-    }
-  })
-}
+const removeEmptyFieldValue = (fields: Fields, override: boolean, source: string, target: string): Fields => fields.filter(field => {
+  const sourceContent = field.valueByLocale(source)
+  if (!sourceContent || sourceContent.trim().length === 0) {
+    return false
+  } else if (!override) {
+    const targetContent = field.valueByLocale(target)
+    return !(targetContent && targetContent.trim().length > 0)
+  } else return true
+})
 
 export type Translator = ({ source, target, override }: { source: string, target: string, override: boolean }) => Promise<void>
 export type MakeTranslator = ({ params, fields }: { params: Params, fields: Fields }) => Translator
 
 const makeTranslator: MakeTranslator = ({ params, fields }) => {
   const makeTranslateWithLangs = deepl.makeTranslate({ key: params.apiKey, free: params.freeMode })
-  return ({ source, target, override }) => {
+  return async ({ source, target, override }) => {
     const cleanFields = removeEmptyFieldValue(fields, override, source, target)
     const fieldsChunks = chunks(cleanFields, 50)
 
     const translate = makeTranslateWithLangs(source, target)
     const updateFields = makeUpdateFields({ translate, source, target })
-    return forEachOfLimit(fieldsChunks, params.maxRequest, updateFields)
+    const result = forEachOfLimit(fieldsChunks, params.maxRequest, updateFields)
+    console.log(result)
+    return result
   }
 }
 

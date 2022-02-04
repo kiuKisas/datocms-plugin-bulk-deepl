@@ -28,13 +28,14 @@ export default function Sidebar({ locales, initTranslator, ctx }: { locales: Loc
     await initTranslator().then(translator =>
       translator({ source, target, override })
         .then(() => {
+          console.log("YOOOOO")
           setLoading(false)
           ctx.notice("SUCCESS !")
         })
         .catch((e: Error) => {
-          ctx.alert(e.message)
           setError(true)
           setLoading(false)
+          ctx.alert(e.message)
           setErrMsg(e.message)
         }))
   }
