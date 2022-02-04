@@ -46,6 +46,9 @@
     ]
   },
   "devDependencies": {
+    "@types/async": "^3.2.12",
+    "@types/marked": "^4.0.2",
+    "@types/turndown": "^5.0.1",
     "cross-env": "^7.0.3"
   },
   "datoCmsPlugin": {

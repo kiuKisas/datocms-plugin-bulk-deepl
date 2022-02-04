@@ -26,19 +26,19 @@ export default function Sidebar({ locales, initTranslator, ctx }: { locales: Loc
     setError(false)
     setLoading(true)
     await initTranslator().then(translator =>
-      translator({ source, target, override })
-        .then(() => {
-          console.log("YOOOOO")
-          setLoading(false)
+      translator({ source, target, override }, (err) => {
+        setLoading(false)
+        if (!err) {
           ctx.notice("SUCCESS !")
-        })
-        .catch((e: Error) => {
+        } else {
           setError(true)
-          setLoading(false)
-          ctx.alert(e.message)
-          setErrMsg(e.message)
-        }))
+          ctx.alert(err.message)
+          setErrMsg(err.message)
+        }
+      })
+    )
   }
+
   return (
     <Form >
       <FieldGroup >

@@ -1,7 +1,7 @@
 import deepl, { Translate } from "./deepl"
 import { Fields } from './fieldsTypes'
 import { Params } from "./paramsTypes";
-import { forEachOfLimit } from "async"
+import async from 'async';
 
 const chunks = (array: Array<any>, chunkSize: number) => {
   const chunkedArr = [];
@@ -12,25 +12,24 @@ const chunks = (array: Array<any>, chunkSize: number) => {
   } return chunkedArr;
 }
 
-type UpdateField = (fields: Fields) => Promise<void | Array<void>>
+type UpdateField = (fields: Fields, fn: async.ErrorCallback | undefined) => Promise<void>
 type MakeUpdateFields = ({ translate, source, target }: { translate: Translate, source: string, target: string }) => UpdateField
 const makeUpdateFields: MakeUpdateFields = ({ translate, source, target }) => {
-  return async (fields) => {
+  return async (fields, fn) => {
     const content = fields.reduce((acc, field) => {
       const value = field.valueByLocale(source)
       if (value) acc.push(value)
       return acc
     }, [] as Array<string>)
-
     return translate(content)
       .then(deeplContent =>
         Promise.all(
           fields.map(async (field, index) => {
             const text = deeplContent[index]
             return field.updateDatoValue(source, target, text)
-          }
-          )
-        )
+          })
+        ).then(() => fn ? fn() : Promise.resolve())
+          .catch((e) => fn ? fn(e) : Promise.reject(e))
       )
   }
 }
@@ -45,20 +44,18 @@ const removeEmptyFieldValue = (fields: Fields, override: boolean, source: string
   } else return true
 })
 
-export type Translator = ({ source, target, override }: { source: string, target: string, override: boolean }) => Promise<void>
+export type Translator = ({ source, target, override }: { source: string, target: string, override: boolean }, fn: async.ErrorCallback) => void
 export type MakeTranslator = ({ params, fields }: { params: Params, fields: Fields }) => Translator
 
 const makeTranslator: MakeTranslator = ({ params, fields }) => {
   const makeTranslateWithLangs = deepl.makeTranslate({ key: params.apiKey, free: params.freeMode })
-  return async ({ source, target, override }) => {
+  return async ({ source, target, override }, fn) => {
     const cleanFields = removeEmptyFieldValue(fields, override, source, target)
     const fieldsChunks = chunks(cleanFields, 50)
 
     const translate = makeTranslateWithLangs(source, target)
     const updateFields = makeUpdateFields({ translate, source, target })
-    const result = forEachOfLimit(fieldsChunks, params.maxRequest, updateFields)
-    console.log(result)
-    return result
+    return async.forEachLimit(fieldsChunks, params.maxRequest, updateFields, fn)
   }
 }
 
