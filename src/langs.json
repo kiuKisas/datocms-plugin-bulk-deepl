@@ -21,7 +21,19 @@
   },
   {
     "value": "en",
+    "variants": [
+      "gb",
+      "us"
+    ],
     "label": "English"
+  },
+  {
+    "value": "en-GB",
+    "label": "English (British)"
+  },
+  {
+    "value": "en-US",
+    "label": "English (American)"
   },
   {
     "value": "es",
@@ -69,7 +81,19 @@
   },
   {
     "value": "pt",
-    "label": "Portuguese"
+    "label": "Portuguese",
+    "variants": [
+      "pt",
+      "br"
+    ]
+  },
+  {
+    "value": "pt-PT",
+    "label": "Portuguese (Portugal)"
+  },
+  {
+    "value": "pt-BR",
+    "label": "Portuguese (Brazil)"
   },
   {
     "value": "ro",
